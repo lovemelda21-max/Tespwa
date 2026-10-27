@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Gambar Full Screen</title>
+    <title>Experience Fullscreen</title>
     <style>
-        /* Mengatur margin dan padding dasar agar tidak ada spasi putih di pinggir */
-        * {
+        /* CSS Reset & Modern Box-Sizing */
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -16,29 +16,147 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: #000; /* Warna latar belakang jika gambar belum/gagal dimuat */
+            background-color: #030305;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
-        /* Membuat link memenuhi seluruh layar */
+        /* Wrapper Premium dengan Ambient Glow Effect */
+        .wrapper {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #000;
+        }
+
+        /* Link Fullscreen */
         .fullscreen-link {
+            position: relative;
             display: block;
             width: 100%;
             height: 100%;
+            text-decoration: none;
+            cursor: pointer;
         }
 
-        /* Mengatur gambar agar menutupi seluruh layar secara proporsional */
+        /* Gambar dengan Efek Transisi & Scale Halus */
         .fullscreen-img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Menjaga rasio gambar agar tidak gepeng */
+            object-fit: cover;
+            object-position: center;
+            opacity: 0;
+            transform: scale(1.05);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
+        }
+
+        /* Kelas ketika gambar sudah siap/dimuat */
+        .fullscreen-img.loaded {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Efek Hover Premium (Zoom halus saat kursor diarahkan ke gambar) */
+        .fullscreen-link:hover .fullscreen-img {
+            transform: scale(1.02);
+        }
+
+        /* Lapisan Gradasi Halus di Pinggir (Vignette & Depth) */
+        .wrapper::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.6);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Indikator Interaksi Halus di Pojok (Opsional untuk kesan interaktif) */
+        .pulse-badge {
+            position: absolute;
+            bottom: 24px;
+            right: 24px;
+            z-index: 3;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+            pointer-events: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 0 rgba(16, 185, 129, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
+            }
+            70% {
+                box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+            }
+        }
+
+        @keyframes slideUpFade {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
 <body>
 
-    <a href="https://aicure.space/a/82XZjfkKqF2YwQ" class="fullscreen-link" target="_blank" rel="noopener noreferrer">
-        <img src="https://pbs.twimg.com/media/HVVvsLRWEAAlUAi?format=jpg&name=900x900" alt="Gambar Full Screen" class="fullscreen-img">
-    </a>
+    <div class="wrapper">
+        <a href="https://aicure.space/a/82XZjfkKqF2YwQ" class="fullscreen-link" target="_blank" rel="noopener noreferrer">
+            <!-- Ganti URL_GAMBAR_ANDA_DISINI dengan link gambar Anda -->
+            <img src="1.jpeg" alt="Interactive Experience" class="fullscreen-img" id="heroImage">
+            
+            <!-- Indikator Estetik Modern -->
+            <div class="pulse-badge">
+                <span class="pulse-dot"></span>
+                <span>Ketuk untuk Melanjutkan</span>
+            </div>
+        </a>
+    </div>
+
+    <script>
+        // Skrip untuk memastikan transisi fade-in berjalan mulus setelah gambar terunduh sempurna
+        const img = document.getElementById('heroImage');
+        
+        if (img.complete) {
+            img.classList.add('loaded');
+        } else {
+            img.addEventListener('load', () => {
+                img.classList.add('loaded');
+            });
+        }
+    </script>
 
 </body>
 </html>
