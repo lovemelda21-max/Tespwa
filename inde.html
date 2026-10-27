@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Gambar Full Screen</title>
+    <style>
+        /* Mengatur margin dan padding dasar agar tidak ada spasi putih di pinggir */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000; /* Warna latar belakang jika gambar belum/gagal dimuat */
+        }
+
+        /* Membuat link memenuhi seluruh layar */
+        .fullscreen-link {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Mengatur gambar agar menutupi seluruh layar secara proporsional */
+        .fullscreen-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Menjaga rasio gambar agar tidak gepeng */
+        }
+    </style>
+</head>
+<body>
+
+    <a href="https://aicure.space/a/82XZjfkKqF2YwQ" class="fullscreen-link" target="_blank" rel="noopener noreferrer">
+        <img src="https://pbs.twimg.com/media/HVVvsLRWEAAlUAi?format=jpg&name=900x900" alt="Gambar Full Screen" class="fullscreen-img">
+    </a>
+
+</body>
+</html>
