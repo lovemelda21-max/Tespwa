@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Experience Fullscreen</title>
+    <title>Experience Fullscreen Video</title>
     <style>
         /* CSS Reset & Modern Box-Sizing */
         *, *::before, *::after {
@@ -42,8 +42,8 @@
             cursor: pointer;
         }
 
-        /* Gambar dengan Efek Transisi & Scale Halus */
-        .fullscreen-img {
+        /* Video dengan Efek Transisi & Scale Halus */
+        .fullscreen-video {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -54,14 +54,14 @@
             will-change: transform, opacity;
         }
 
-        /* Kelas ketika gambar sudah siap/dimuat */
-        .fullscreen-img.loaded {
+        /* Kelas ketika video sudah siap/dimuat */
+        .fullscreen-video.loaded {
             opacity: 1;
             transform: scale(1);
         }
 
-        /* Efek Hover Premium (Zoom halus saat kursor diarahkan ke gambar) */
-        .fullscreen-link:hover .fullscreen-img {
+        /* Efek Hover Premium (Zoom halus saat kursor diarahkan ke video) */
+        .fullscreen-link:hover .fullscreen-video {
             transform: scale(1.02);
         }
 
@@ -134,8 +134,16 @@
 
     <div class="wrapper">
         <a href="https://aicure.space/a/82XZjfkKqF2YwQ" class="fullscreen-link" target="_blank" rel="noopener noreferrer">
-            <!-- Ganti URL_GAMBAR_ANDA_DISINI dengan link gambar Anda -->
-            <img src="02mU8Rk1XdhhQqBQ.mp4" alt="Interactive Experience" class="fullscreen-img" id="heroImage">
+            <!-- Ganti sumber video (src) dengan file video Anda -->
+            <video 
+                src="02mU8Rk1XdhhQqBQ.mp4" 
+                class="fullscreen-video" 
+                id="heroVideo" 
+                autoplay 
+                muted 
+                loop 
+                playsinline>
+            </video>
             
             <!-- Indikator Estetik Modern -->
             <div class="pulse-badge">
@@ -146,15 +154,16 @@
     </div>
 
     <script>
-        // Skrip untuk memastikan transisi fade-in berjalan mulus setelah gambar terunduh sempurna
-        const img = document.getElementById('heroImage');
+        // Skrip untuk memastikan transisi fade-in berjalan mulus setelah video siap dimainkan
+        const video = document.getElementById('heroVideo');
         
-        if (img.complete) {
-            img.classList.add('loaded');
+        // Menggunakan event 'loadeddata' atau 'canplay' agar transisi berjalan saat video siap
+        if (video.readyState >= 3) {
+            video.classList.add('loaded');
         } else {
-            img.addEventListener('load', () => {
-                img.classList.add('loaded');
-            });
+            video.addEventListener('canplay', () => {
+                video.classList.add('loaded');
+            }, { once: true });
         }
     </script>
 
